@@ -1,0 +1,17 @@
+version: '3.4'
+
+networks:
+  web:
+    external: true
+
+services:
+  endgegner:
+    build: .
+    restart: always
+    labels:
+      - traefik.http.routers.endgegner.rule=Host(`endgegner.your-domain.com`)
+      - traefik.http.routers.endgegner.tls=true
+      - traefik.http.routers.endgegner.tls.certresolver=lets-encrypt
+      - traefik.port=80
+    networks:
+      - web
